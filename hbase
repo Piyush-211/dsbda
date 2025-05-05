@@ -1,0 +1,80 @@
+hbase shell
+#Create Table:
+create 'flight','finfo','fsch'
+
+#Table Created-list
+hbase(main):003:0> list
+
+#Insert records in created table
+put 'flight',1,'finfo:source','pune'
+put 'flight',1,'finfo:dest','mumbai'
+ put 'flight',1,'fsch:at','10.25a.m.'
+put 'flight',1,'fsch:dt','11.25 a.m.'
+put 'flight',1,'fsch:delay','5'
+
+#Display Records from Table ‘flight’
+scan 'flight'
+
+alter 'flight',NAME=>'revenue'
+
+#Insert records into added column family
+ put 'flight',4,'revenue:rs','45000'
+scan 'flight'
+
+#Delete Column family
+alter 'flight',NAME=>'revenue',METHOD=>'delete'
+scan 'flight'
+
+
+#Drop Table
+#Create Table for dropping
+create 'tb1','cf'
+
+#Disable table
+hbase(main):049:0> disable 'tb1'
+ drop 'tb1'
+ list
+
+#Read data from table for row key 1:
+
+get 'flight',1
+
+
+Read data for particular column from HBase table:
+get 'flight','1',COLUMN=>'finfo:source'
+
+
+
+
+@@@@@@@@create 'student_hbase', 'info', 'marks'
+put 'student_hbase', '1', 'info:name', 'John'
+put 'student_hbase', '1', 'info:branch', 'CSE'
+put 'student_hbase', '1', 'marks:math', '85'
+put 'student_hbase', '1', 'marks:physics', '90'
+
+put 'student_hbase', '2', 'info:name', 'Alice'
+put 'student_hbase', '2', 'info:branch', 'ECE'
+put 'student_hbase', '2', 'marks:math', '78'
+put 'student_hbase', '2', 'marks:physics', '88'
+
+
+DROP TABLE IF EXISTS student_hive;
+
+CREATE EXTERNAL TABLE student_hive (
+    key STRING,
+    name STRING,
+    branch STRING,
+    math INT,
+    physics INT
+)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+WITH SERDEPROPERTIES (
+    "hbase.columns.mapping" = ":key,info:name,info:branch,marks:math,marks:physics"
+)
+TBLPROPERTIES ("hbase.table.name" = "student_hbase");
+
+
+SELECT * FROM student_hive;
+1   John   CSE   85   90
+2   Alice  ECE   78   88
+
