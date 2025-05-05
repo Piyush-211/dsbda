@@ -1,0 +1,59 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+df = pd.read_csv('newfb.csv')
+
+# Check the first few rows of the dataset
+print(df.head())
+
+# Get basic information about the dataset
+print(df.info())
+
+histogram
+plt.figure(figsize=(10, 6))
+sns.histplot(df['Lifetime Post Total Reach'], kde=True, bins=30)
+plt.title('Distribution of Lifetime Post Total Reach')
+plt.xlabel('Lifetime Post Total Reach')
+plt.ylabel('Frequency')
+plt.show()
+
+countplot
+plt.figure(figsize=(10, 6))
+sns.countplot(x='Type', data=df)
+plt.title('Count of Posts by Type')
+plt.xlabel('Post Type')
+plt.ylabel('Count of Posts')
+plt.xticks(rotation=45)
+plt.show()
+
+scatterplot
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x='Lifetime Post Total Reach', y='Lifetime Post Consumptions', data=df)
+plt.title('Lifetime Post Total Reach vs Lifetime Post Consumptions')
+plt.xlabel('Lifetime Post Total Reach')
+plt.ylabel('Lifetime Post Consumptions')
+plt.show()
+
+
+boxplot
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Type', y='Total Interactions', data=df)
+plt.title('Distribution of Total Interactions by Post Type')
+plt.xlabel('Post Type')
+plt.ylabel('Total Interactions')
+plt.xticks(rotation=45)
+plt.show()
+
+violinplot
+sns.violinplot(x='Post Month', y='Total Interactions', data=df)
+plt.title('Total Interactions by Post Month')
+plt.show()
+
+lineplot
+sns.lineplot(x='Post Hour', y='Total Interactions', data=df)
+plt.title('Total Interactions by Post Hour')
+plt.xlabel('Post Hour')
+plt.ylabel('Total Interactions')
+plt.show()
