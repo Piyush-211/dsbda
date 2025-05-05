@@ -1,0 +1,51 @@
+import requests
+import bs4
+
+request1=requests.get('https://www.flipkart.com/noise-icon-2-1-8-display-bluetooth-calling-women-s-edition-ai-voice-assistant-smartwatch/p/itm968c523d99eae?pid=SMWGEH7VNGPYN5NV&lid=LSTSMWGEH7VNGPYN5NVEORYD7&marketplace=FLIPKART&store=ajy&srno=b_1_1&otracker=browse&fm=organic&iid=en_ZWMB6k0dk6vPVZeR5Bsx-P00HRvMkbH_JD5L0Meokz8gCHk2Bl_nbXbqF87xnKC8K-txWLFXOsYDT6Vb6IDiQg%3D%3D&ppt=browse&ppn=browse&ssid=5l1m9zckqo0000001746442096243')
+
+request1
+
+request1.content
+
+soup=bs4.BeautifulSoup(request1.text)
+soup
+
+reviews=soup.findAll('div',{'class':'RcXBOT'});
+for review in reviews:
+    print(review.get_text(), end="\n\n")
+
+ratings=soup.find('div',{'class':'ipqd2A'}).get_text();
+print(ratings)
+
+ind_rat=soup.findAll('div',{'class':'XQDdHH Ga3i8K'});
+for ind in ind_rat:
+    print(ind.get_text() + "\n")
+
+tags=soup.find('span',{'class':'VU-ZEz'}).get_text();
+tags
+
+cust_name=soup.findAll('p',{'class':'_2NsDsF AwS1CA'});
+for cust in cust_name:
+    print(cust.get_text() + '\n');
+
+ques=soup.find_all('div',{'class':'wys2hv _43gOsC'});
+for que in ques:
+    print(que.get_text());
+    answ=que.findNext('div',{'class':'JxAXcP'}).get_text();
+    print(answ + '\n')
+
+
+# Step 1: Send request
+url = 'https://www.flipkart.com/noise-icon-2-1-8-display-bluetooth-calling-women-s-edition-ai-voice-assistant-smartwatch/p/itm968c523d99eae?pid=SMWGEH7VNGPYN5NV'
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'html.parser')
+
+# Step 2: Find image tags in review section (if any)
+img_tags = soup.find_all('img')
+
+# Step 3: Filter images related to customers (optional - based on 'alt' or 'class')
+for img in img_tags:
+    alt_text = img.get('alt')
+    img_src = img.get('src') or img.get('data-src')  # some images are lazy-loaded
+    if img_src and (alt_text is None or 'user' in alt_text.lower()):
+        print(img_src)
