@@ -57,3 +57,32 @@ plt.title('Total Interactions by Post Hour')
 plt.xlabel('Post Hour')
 plt.ylabel('Total Interactions')
 plt.show()
+
+
+
+# Group by hour and calculate mean values
+hour_group = df.groupby('Post Hour')[['like', 'comment', 'share']].mean()
+
+plt.figure(figsize=(10, 6))
+plt.plot(hour_group.index, hour_group['like'], label='Likes', marker='o')
+plt.plot(hour_group.index, hour_group['comment'], label='Comments', marker='s')
+plt.plot(hour_group.index, hour_group['share'], label='Shares', marker='^')
+plt.title('Multiple Line Graph: Likes, Comments, Shares by Post Hour')
+plt.xlabel('Post Hour')
+plt.ylabel('Average Count')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+sungle line graph
+# Group by hour and calculate average interactions
+hourly_avg = df.groupby('Post Hour')['Total Interactions'].mean()
+
+plt.figure(figsize=(8, 5))
+plt.plot(hourly_avg.index, hourly_avg.values, marker='o', linestyle='-')
+plt.title('Single Line Graph: Avg Total Interactions by Hour')
+plt.xlabel('Post Hour')
+plt.ylabel('Average Total Interactions')
+plt.grid(True)
+plt.show()
