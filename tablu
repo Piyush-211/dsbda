@@ -1,0 +1,6 @@
+1D ROW AGE , COLR RACE
+2D ROWS AGE, COL OCCU, LABEL RACE , COLOUR INC
+3D ROWS AGE, COL OCCU; MARITAL , COLOUR RACE
+TREE MAP ROWS AGE, SEE MORE (TREE MAP)COL OCCU, LABEL INC
+
+line x   line y circle y        line y  line   relationship detail            circle y   node colour   relationship details  lable
